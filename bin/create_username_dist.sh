@@ -5,9 +5,6 @@ WORK_PATH="$1"
 cd "$WORK_PATH"
 
 for directory in ./*; do
-  echo "$directory"
-  cd "$directory"
-  echo "$PWD"
-  cat "failed_login_data.txt"
+  sed -E "s/[A-Za-z]+ [0-9]+ [0-9]+ ([a-zA-Z]+) [a-zA-Z0-9. ]+/\1/;t;d" < "failed_login_data.txt" > "stripped_usernames.txt"
   cd "../"
 done
