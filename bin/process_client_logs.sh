@@ -10,7 +10,5 @@ touch "failed_login_data.txt"
 for filename in ./var/log/*; do
   # from http://mywiki.wooledge.org/BashPitfalls#line-57
   [ -e "$filename" ] || continue
-  sed -E "s/$EXP1/\1 \3 \4/;t;d" "$filename" >> "failed_login_data.txt"
-  sed -E "s/$EXP2/\1 \3 \4/;t;d" "$filename" >> "failed_login_data.txt"
-  sed -E "s/$EXP3/\1 root \3/;t;d" "$filename" >> "failed_login_data.txt"
+  { sed -E "s/$EXP1/\1 \3 \4/;t;d" "$filename"; sed -E "s/$EXP2/\1 \3 \4/;t;d" "$filename";  sed -E "s/$EXP3/\1 root \3/;t;d" "$filename"; } > "failed_login_data.txt"
 done
