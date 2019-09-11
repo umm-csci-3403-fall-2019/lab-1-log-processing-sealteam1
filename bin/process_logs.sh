@@ -15,6 +15,7 @@ trap 'rm -rf "$TMPDIR"' EXIT
 
 #record the location of the scripts, for access from scratch directory
 SCRIPT_PATH=$(pwd)/bin
+ORIGIN_PATH=$(pwd)
 
 for ARCHIVE in "$@"
 do
@@ -31,8 +32,15 @@ do
   )
 done
 
-#new subshell for commands that run after, in the root of the scratch directory
+#new subshell for commands that run after
 (
 #run create_username_dist.sh
 "$SCRIPT_PATH/"create_username_dist.sh $WORKSPACE
+
+#other create_ scripts go here
+
+#assemble_report goes here
+
+mv ${WORKSPACE}/failed_login_summary.html $ORIGIN_PATH/failed_login_summary.html
 )
+#All done, and so the script triggers it's own self destruct clause automatically
