@@ -18,10 +18,9 @@ done
 
 #Thanks to https://stackoverflow.com/questions/15984414/bash-script-count-unique-lines-in-file
 #This handles making unique and getting counts
-sort "combined.txt" | uniq -c | sort -bgr > "combined_data.txt"
+sort "combined.txt" | uniq -c > "combined_data.txt"
 
 #now we reformat them into js commands
-sed -E "s/ +([0-9]+) ( +([0-9]+) ([a-zA-Z0-9_\-]+)+)/data\.addRow\(\['\2', \1\]\);/" < "combined_data.txt" > "combined_js.txt")
-
+sed -E "s/ +([0-9]+) ([a-zA-Z_\-]+)/data\.addRow\(\['\2', \1\]\);/;t;d" < "combined_data.txt" > "combined_js.txt")
 
 ./bin/wrap_contents.sh "${WORK_PATH}/combined_js.txt" "./html_components/username_dist" "${WORK_PATH}/username_dist.html"
