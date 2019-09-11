@@ -8,7 +8,7 @@ WORK_PATH="$1"
 for directory in ./*; do
 	#use a subshell to go into the directory
  	(cd "$directory" || exit
-  	sed -E "s/[A-Za-z]+ [0-9]+ [0-9]+ ([a-zA-Z]+) [a-zA-Z0-9. ]+/\1/;t;d" < "failed_login_data.txt" > "../${directory}_data.txt") 
+  	sed -E "s/[A-Za-z]+ [0-9]+ [0-9]+ ([a-zA-Z]+) [a-zA-Z0-9. ]+/\1/;t;d" < "failed_login_data.txt" > "../${directory}_data.txt")
 
 done
 #Combine the data from all machines into one file
@@ -21,9 +21,7 @@ done
 sort "combined.txt" | uniq -c | sort -bgr > "combined_data.txt"
 
 #now we reformat them into js commands
-sed -E "s/ +([0-9]+) ([a-zA-Z\-_0-9]+)/data\.addRow\(\['\2', \1\]\);/" < "combined_data.txt" > "combined_js.txt")
+sed -E "s/ +([0-9]+) ( +([0-9]+) ([a-zA-Z0-9_\-]+)+)/data\.addRow\(\['\2', \1\]\);/" < "combined_data.txt" > "combined_js.txt")
 
 
 ./bin/wrap_contents.sh "${WORK_PATH}/combined_js.txt" "./html_components/username_dist" "${WORK_PATH}/username_dist.html"
-
-
