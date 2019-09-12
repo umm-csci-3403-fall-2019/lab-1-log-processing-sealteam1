@@ -2,6 +2,8 @@
 
 WORK_PATH="$1"
 
+ls -R "$WORK_PATH"
+
 #Do all the work in the scratch directory in a subshell
 (cd "$WORK_PATH" || exit
 
@@ -26,6 +28,6 @@ sed -E "s/ +([0-9]+) ([a-zA-Z_\-]+)/data\.addRow\(\['\2', \1\]\);/;t;d" < "combi
 ./bin/wrap_contents.sh "${WORK_PATH}/combined_js.txt" "./html_components/username_dist" "${WORK_PATH}/username_dist.html"
 
 #now remove our temp files, so that other scripts can have a clear workspace
-rm "$WORK_PATH"*.txt
+rm "$WORK_PATH"/*.txt
 
 #done
