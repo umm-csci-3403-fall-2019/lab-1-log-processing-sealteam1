@@ -28,12 +28,14 @@ sort "country_combined.txt" > "country_sorted.txt"
 #now to convert to country codes
 join "country_sorted.txt" "$ORIGIN_PATH/etc/country_IP_map.txt" > "country_codes.txt"
 
-# now we make them unique and get counts
-uniq -c "country_codes.txt" > "country_counts.txt"
+#Now we need to convert them into raw country codes, sort cause they are out of order, and output them
+sed -E "s/[0-9\.]+ ([A-Z][A-Z])/\1/" < "country_codes.txt" | sort > "country_codes_alone.txt"
 
+#Now we count them
+uniq -c "country_codes_alone.txt" > "country_counts.txt"
 
 #now we reformat them into js commands
-sed -E "s/ +([0-9]+) [0-9\.]+ ([A-Z]{2})/data\.addRow\(\['\2', \1\]\);/" < "country_counts.txt" > "country_js.txt"
+sed -E "s/ +([0-9]+) ([A-Z]{2})/data\.addRow\(\['\2', \1\]\);/" < "country_counts.txt" > "country_js.txt"
 
 cd "$ORIGIN_PATH" || exit
 
