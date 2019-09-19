@@ -17,9 +17,8 @@ for directory in ./*; do
   fi
 done
 
-done
 #Combine the data from all machines into one file
-for file in ./*username_data.txt; do
+for file in ./*_username_data.src; do
   cat "$file" >> "username_combined.txt"
 done
 

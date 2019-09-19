@@ -38,7 +38,6 @@ done
 #run create_username_dist.sh
 "$SCRIPT_PATH/"create_username_dist.sh "$WORKSPACE"
 
-ls -R "$WORKSPACE"
 #other create_ scripts go here
 "$SCRIPT_PATH/"create_country_dist.sh "$WORKSPACE"
 
