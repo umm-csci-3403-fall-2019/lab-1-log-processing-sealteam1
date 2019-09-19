@@ -13,7 +13,7 @@ for directory in ./*; do
     #put those under a different file extension to not have later proccessing stages get picked up by even later scripts
     	sed -E "s/[A-Za-z]+ [0-9]+ [0-9]+ ([a-zA-Z]+) [a-zA-Z0-9. ]+/\1/;t;d" < "failed_login_data.txt" > "../${directory}_username_data.src"
       #jump back up to the higher folder
-      cd "$ORIGIN_PATH/$WORK_PATH"
+      cd ../ || exit
   fi
 done
 
