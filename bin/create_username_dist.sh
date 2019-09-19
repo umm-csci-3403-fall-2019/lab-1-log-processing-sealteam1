@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 WORK_PATH="$1"
-ORIGIN_PATH=$(pwd)
 
 #Do all the work in the scratch directory in a subshell
 (cd "$WORK_PATH" || exit
