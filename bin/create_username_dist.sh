@@ -10,7 +10,7 @@ for directory in ./*; do
   if [[ -d "$directory" ]]; then
    	cd "$directory" || exit
     #put those under a different file extension to not have later proccessing stages get picked up by even later scripts
-    	sed -E "s/[A-Za-z]+ [0-9]+ [0-9]+ ([a-zA-Z]+) [a-zA-Z0-9. ]+/\1/;t;d" < "failed_login_data.txt" > "../${directory}_username_data.src"
+    	sed -E "s/[A-Za-z]+ +[0-9]+ [0-9]+ ([a-zA-Z0-9_\-]+) [0-9. ]+/\1/;t;d" < "failed_login_data.txt" > "../${directory}_username_data.src"
       #jump back up to the higher folder
       cd ../ || exit
   fi
@@ -26,6 +26,6 @@ done
 sort "username_combined.txt" | uniq -c > "username_combined_data.txt"
 
 #now we reformat them into js commands
-sed -E "s/ +([0-9]+) ([a-zA-Z_\-]+)/data\.addRow\(\['\2', \1\]\);/;t;d" < "username_combined_data.txt" > "username_combined_js.txt")
+sed -E "s/ +([0-9]+) ([a-zA-Z0-9_\-]+)/data\.addRow\(\['\2', \1\]\);/;t;d" < "username_combined_data.txt" > "username_combined_js.txt")
 
 ./bin/wrap_contents.sh "${WORK_PATH}/username_combined_js.txt" "./html_components/username_dist" "${WORK_PATH}/username_dist.html"
