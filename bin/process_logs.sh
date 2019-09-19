@@ -4,6 +4,7 @@
 
 #Make a scratch working directory safely
 WORKSPACE=$(mktemp -d)
+#WORKSPACE=$(pwd)/tastebed
 
 if [ ! -e "$WORKSPACE" ]; then
   echo "could not create temp directory"
