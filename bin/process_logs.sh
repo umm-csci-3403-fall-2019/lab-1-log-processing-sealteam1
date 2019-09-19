@@ -32,14 +32,20 @@ do
   )
 done
 
+
 #new subshell for commands that run after
 (
 #run create_username_dist.sh
 "$SCRIPT_PATH/"create_username_dist.sh "$WORKSPACE"
 
+ls -R "$WORKSPACE"
 #other create_ scripts go here
+"$SCRIPT_PATH/"create_country_dist.sh "$WORKSPACE"
 
+"$SCRIPT_PATH/"create_hours_dist.sh "$WORKSPACE"
 #assemble_report goes here
+"$SCRIPT_PATH/"assemble_report.sh "$WORKSPACE"
+
 
 mv "${WORKSPACE}/failed_login_summary.html" "$ORIGIN_PATH/failed_login_summary.html"
 )
