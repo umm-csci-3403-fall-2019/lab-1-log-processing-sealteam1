@@ -11,7 +11,7 @@ for directory in ./*; do
   if [[ -d "$directory" ]]; then
    	cd "$directory" || exit
         #put those under a different file extension to not have later proccessing stages get picked up by even later scripts
-    	sed -E "s/[A-Za-z]+ {1,2}[0-9]+ ([0-9]+) [A-Za-z0-9_\-]+ [0-9\.]+/\1/;t;d" < "failed_login_data.txt" > "../${directory}_hours_data.src"       
+    	sed -E "s/[A-Za-z]+ {1,2}[0-9]+ ([0-9]+) [A-Za-z0-9_\-]+ [0-9\.]+/\1/;t;d" < "failed_login_data.txt" > "../${directory}_hours_data.src"
         #jump back up to the higher folder
         cd ../ || exit
   fi
@@ -31,7 +31,7 @@ uniq -c "hours_sorted.txt" > "hours_counts.txt"
 
 
 #now we reformat them into js commands
-sed -E "s/ +([0-9]+) ([0-9]+)/data\.addRow\(\['\2', \1\]\);/" < "hours_counts.txt" > "hours_js.txt"
+sed -E "s/ +([0-9]+) ([0-9]+) [ a-zA-Z0-9]+/data\.addRow\(\['\2', \1\]\);/" < "hours_counts.txt" > "hours_js.txt"
 
 cd "$ORIGIN_PATH" || exit
 
